@@ -5,6 +5,7 @@ from pydantic import BaseModel, ConfigDict, EmailStr
 
 from app.schemas.campaign import CampaignRead
 from app.schemas.company import CompanyRead
+from app.schemas.score import ScoreRead
 
 
 class LeadCreate(BaseModel):
@@ -30,6 +31,7 @@ class LeadRead(BaseModel):
     source_url: str
     status: str
     created_at: datetime
+    score: Optional[ScoreRead] = None
 
 
 class LeadDetail(LeadRead):
