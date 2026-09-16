@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
+from app.core.errors import register_error_handlers
+from app.routers import campaigns, companies, events, leads
 
 app = FastAPI(title="ThinkDataX Lead Platform API")
 
@@ -12,6 +14,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+register_error_handlers(app)
+
+app.include_router(companies.router)
+app.include_router(campaigns.router)
+app.include_router(leads.router)
+app.include_router(events.router)
 
 
 @app.get("/health")
