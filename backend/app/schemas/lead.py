@@ -16,6 +16,7 @@ class LeadCreate(BaseModel):
     title: Optional[str] = None
     email: EmailStr
     source_url: str
+    raw_data: Optional[dict] = None
 
 
 class LeadRead(BaseModel):

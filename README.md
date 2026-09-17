@@ -17,3 +17,6 @@ _To be filled in as each layer is built. Final version will include full setup, 
 
 ## Architecture notes, scoring weights, classification accuracy, and cuts
 _To be added in the final checkpoint._
+
+## Compliance
+Every outreach email includes a working one-click unsubscribe link (added to the suppression list immediately, honoured on all future sends) and identifies the sender (StyleSense AI) — the minimum required for GDPR and CAN-SPAM compliance; no marketing email is sent to a suppressed address.

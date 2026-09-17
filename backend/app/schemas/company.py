@@ -10,6 +10,7 @@ class CompanyCreate(BaseModel):
     industry: Optional[str] = None
     region: Optional[str] = None
     size: Optional[str] = None
+    raw_data: Optional[dict] = None
 
 
 class CompanyRead(BaseModel):

@@ -6,20 +6,13 @@ from sqlalchemy.orm import Session
 
 from app.core.security import require_api_token
 from app.db.database import get_db
-from app.db.models import EmailEvent, Lead, LeadStatus
+from app.db.models import EmailEvent, Lead
 from app.schemas.event import EventCreate, EventRead
-from app.services.scoring import recompute_score
+from app.services.events import record_event
 
 router = APIRouter(
     prefix="/leads/{lead_id}/events", tags=["events"], dependencies=[Depends(require_api_token)]
 )
-
-_STATUS_FROM_EVENT_TYPE = {
-    "sent": LeadStatus.SENT.value,
-    "opened": LeadStatus.OPENED.value,
-    "replied": LeadStatus.REPLIED.value,
-    "unsubscribed": LeadStatus.UNSUBSCRIBED.value,
-}
 
 
 @router.post("", response_model=EventRead, status_code=status.HTTP_201_CREATED)
@@ -28,15 +21,7 @@ def create_event(lead_id: int, payload: EventCreate, db: Session = Depends(get_d
     if lead is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lead not found.")
 
-    event = EmailEvent(lead_id=lead_id, **payload.model_dump())
-    db.add(event)
-    db.flush()
-
-    new_status = _STATUS_FROM_EVENT_TYPE.get(payload.event_type)
-    if new_status is not None:
-        lead.status = new_status
-
-    recompute_score(db, lead, triggered_by_event_id=event.id)
+    event = record_event(db, lead, payload.event_type, payload.event_metadata)
 
     db.commit()
     db.refresh(event)

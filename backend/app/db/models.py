@@ -147,3 +147,12 @@ class ScoreHistory(Base):
 
     lead: Mapped["Lead"] = relationship(back_populates="score_history")
     triggered_by_event: Mapped[Optional["EmailEvent"]] = relationship()
+
+
+class Suppression(Base):
+    __tablename__ = "suppressions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    reason: Mapped[str] = mapped_column(String(100), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())    
