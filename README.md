@@ -1,22 +1,54 @@
-# StyleSense AI — Lead Generation & Email Marketing Platform
+# StyleSense AI - Lead Generation & Email Outreach Platform
 
-Take-home submission for ThinkDataX (Full Stack + AI Engineer).
+Take-home assignment submission for ThinkDataX - Full Stack + AI Engineer.
 
-## Status
-Work in progress — built incrementally, see commit history.
+## Overview
 
-## Stack
-- Backend: Python, FastAPI (synchronous)
-- Database: PostgreSQL (SQLAlchemy)
-- Frontend: React, TypeScript, Vite
-- AI: Claude (Anthropic) with tool-use, Tavily for search
-- Email: Resend (sandbox)
+StyleSense AI is a lightweight AI-assisted lead generation and outreach platform.
 
-## Run steps
-_To be filled in as each layer is built. Final version will include full setup, run, and test commands._
+The application supports:
 
-## Architecture notes, scoring weights, classification accuracy, and cuts
-_To be added in the final checkpoint._
+- Campaign and ICP management
+- AI-assisted lead discovery with source-backed research
+- Lead scoring from 0 to 100
+- Personalized outbound email generation
+- Email send tracking and unsubscribe suppression
+- Inbound reply classification
+- AI-generated draft responses
+- A React dashboard for managing campaigns and leads
 
-## Compliance
-Every outreach email includes a working one-click unsubscribe link (added to the suppression list immediately, honoured on all future sends) and identifies the sender (StyleSense AI) — the minimum required for GDPR and CAN-SPAM compliance; no marketing email is sent to a suppressed address.
+## Tech Stack
+
+### Backend
+- Python
+- FastAPI
+- SQLAlchemy 2.x
+- PostgreSQL
+- Pydantic
+
+### Frontend
+- React 19
+- TypeScript
+- Vite
+- CSS custom properties
+
+### AI / Data
+- Anthropic Claude
+- Tavily search
+- Resend email API
+
+## Architecture
+
+```text
+React Dashboard
+      |
+      v
+FastAPI REST API
+      |
+      +---- PostgreSQL
+      |
+      +---- Anthropic Claude
+      |
+      +---- Tavily Search
+      |
+      +---- Resend Email
