@@ -6,6 +6,7 @@ import type {
   Lead,
   LeadDetail,
   Page,
+  ReplyClassification,
   ScoreHistory,
 } from './types';
 
@@ -98,5 +99,14 @@ export const api = {
   email: {
     send: (leadId: number): Promise<EmailEvent> =>
       apiFetch(`/leads/${leadId}/send`, { method: 'POST' }),
+  },
+
+  // ─── Replies ───────────────────────────────────────────────────────────────
+  replies: {
+    classify: (leadId: number, replyText: string): Promise<ReplyClassification> =>
+      apiFetch(`/leads/${leadId}/classify-reply`, {
+        method: 'POST',
+        body: JSON.stringify({ reply_text: replyText }),
+      }),
   },
 };

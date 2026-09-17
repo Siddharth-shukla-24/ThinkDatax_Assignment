@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.errors import register_error_handlers
-from app.routers import campaigns, companies, discovery, emails, events, leads, tracking
+from app.routers import campaigns, companies, discovery, emails, events, leads, replies, tracking
 
 app = FastAPI(title="ThinkDataX Lead Platform API")
 
@@ -22,6 +22,7 @@ app.include_router(campaigns.router)
 app.include_router(discovery.router)
 app.include_router(leads.router)
 app.include_router(events.router)
+app.include_router(replies.router)
 app.include_router(emails.router)
 app.include_router(tracking.router)
 

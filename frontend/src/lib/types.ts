@@ -96,3 +96,19 @@ export interface DiscoveryResult {
   created_lead_ids: number[];
   rejected: { reason: string }[];
 }
+
+
+// ─── Reply classification ──────────────────────────────────────────────────────
+export type ReplyLabel =
+  | 'Interested'
+  | 'Not Interested'
+  | 'Needs Follow-up'
+  | 'Unsubscribe Request'
+  | 'Other';
+
+export interface ReplyClassification {
+  label: ReplyLabel;
+  confidence: number;
+  reasoning: string;
+  draft_response: string;
+}

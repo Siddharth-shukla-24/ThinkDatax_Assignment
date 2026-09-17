@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { api } from '../lib/api';
-import type { LeadDetail, EmailEvent, ScoreHistory, LeadStatus, EventType } from '../lib/types';
+import type { LeadDetail, EmailEvent, ScoreHistory, LeadStatus, EventType, ReplyClassification } from '../lib/types';
 import {
   Spinner,
   Empty,
@@ -73,6 +73,86 @@ function SimulateEventPanel({
   );
 }
 
+// ─── Classify reply panel ─────────────────────────────────────────────────────
+function labelColor(label: string): string {
+  const map: Record<string, string> = {
+    'Interested': '#29d87a',
+    'Not Interested': '#f0524f',
+    'Needs Follow-up': '#f5c842',
+    'Unsubscribe Request': '#a06af8',
+    'Other': '#555d70',
+  };
+  return map[label] ?? '#555d70';
+}
+
+function ClassifyReplyPanel({ leadId, onDone }: { leadId: number; onDone: () => void }) {
+  const [text, setText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState('');
+  const [result, setResult] = useState<ReplyClassification | null>(null);
+
+  const submit = async () => {
+    if (!text.trim()) return;
+    setLoading(true);
+    setErr('');
+    setResult(null);
+    try {
+      const r = await api.replies.classify(leadId, text);
+      setResult(r);
+      onDone();
+    } catch (e: unknown) {
+      setErr(e instanceof Error ? e.message : 'Failed to classify reply.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="card" style={{ marginBottom: 20 }}>
+      <div className="section-header">
+        <span className="section-title">Classify Reply</span>
+      </div>
+      <div className="form-group" style={{ marginBottom: 8 }}>
+        <textarea
+          className="form-textarea"
+          placeholder="Paste the inbound reply text here…"
+          value={text}
+          onChange={e => setText(e.target.value)}
+          style={{ width: '100%' }}
+        />
+      </div>
+      <button className="btn btn-primary btn-sm" onClick={() => void submit()} disabled={loading || !text.trim()}>
+        {loading ? <><Spinner /> Classifying…</> : 'Classify Reply'}
+      </button>
+
+      {err && <div style={{ marginTop: 10 }}><ErrorAlert message={err} /></div>}
+
+      {result && (
+        <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span
+              className="badge"
+              style={{ background: `${labelColor(result.label)}22`, color: labelColor(result.label) }}
+            >
+              {result.label}
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+              Confidence: {(result.confidence * 100).toFixed(0)}%
+            </span>
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>{result.reasoning}</div>
+          <div className="detail-field" style={{ marginTop: 4 }}>
+            <div className="detail-field-label">Draft Response</div>
+            <div className="detail-field-value" style={{ whiteSpace: 'pre-wrap' }}>
+              {result.draft_response}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Lead Detail Page ─────────────────────────────────────────────────────────
 export default function LeadDetailPage({ leadId, onBack, campaignName, onBackToCampaign }: Props) {
   const [lead, setLead] = useState<LeadDetail | null>(null);
@@ -103,7 +183,26 @@ export default function LeadDetailPage({ leadId, onBack, campaignName, onBackToC
     }
   }, [leadId]);
 
-  useEffect(() => { void loadAll(); }, [loadAll]);
+    useEffect(() => {
+      const timer = window.setTimeout(() => { void loadAll(); }, 0);
+      return () => window.clearTimeout(timer);
+    }, [loadAll]);
+
+    const refreshSilently = useCallback(async () => {
+    try {
+      const [l, evts, hist] = await Promise.all([
+        api.leads.get(leadId),
+        api.events.list(leadId),
+        api.leads.scoreHistory(leadId),
+      ]);
+      setLead(l);
+      setEvents(evts);
+      setHistory(hist);
+    } catch {
+      // ignore - the classify result is already showing; don't disrupt it
+    }
+  }, [leadId]);
+
 
   const handleSend = async () => {
     setSending(true);
@@ -346,6 +445,9 @@ export default function LeadDetailPage({ leadId, onBack, campaignName, onBackToC
         <SimulateEventPanel leadId={leadId} onDone={() => void loadAll()} />
       </div>
 
+       {/* Classify reply */}
+      <ClassifyReplyPanel leadId={leadId} onDone={() => void refreshSilently()} />
+       
       {/* Score history */}
       <div className="card">
         <div className="section-header">
