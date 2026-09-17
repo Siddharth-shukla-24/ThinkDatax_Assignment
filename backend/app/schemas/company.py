@@ -23,3 +23,4 @@ class CompanyRead(BaseModel):
     region: Optional[str]
     size: Optional[str]
     created_at: datetime
+    raw_data: Optional[dict] = None

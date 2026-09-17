@@ -33,6 +33,7 @@ class LeadRead(BaseModel):
     status: str
     created_at: datetime
     score: Optional[ScoreRead] = None
+    raw_data: Optional[dict] = None
 
 
 class LeadDetail(LeadRead):

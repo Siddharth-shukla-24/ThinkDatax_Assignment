@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     resend_api_key: str = ""
     resend_from_email: str = "onboarding@resend.dev"
     sender_name: str = "Alex Rivera"
+    anthropic_api_key: str = ""
+    tavily_api_key: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
