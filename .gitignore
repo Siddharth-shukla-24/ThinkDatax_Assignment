@@ -16,3 +16,4 @@ frontend/.env
 .idea/
 
 /.claude/
+PROJECT_CONTEXT.md
