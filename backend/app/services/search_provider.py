@@ -29,6 +29,42 @@ _MOCK_RESULTS = [
             "improve inventory allocation across stores and its online marketplace."
         ),
     },
+        {
+        "title": "Target names Cara Sylvester Chief Merchandising Officer",
+        "url": "https://corporate.target.com/about/leadership-team/cara-sylvester",
+        "snippet": (
+            "Target named Cara Sylvester chief merchandising officer effective February 2026. "
+            "She leads assortment, product development, product design, partner collaborations, "
+            "and merchandising capabilities."
+        ),
+    },
+    {
+        "title": "Under Armour names Kara Trent Chief Merchandising Officer",
+        "url": "https://about.underarmour.com/en/investors/corporate-governance.html",
+        "snippet": (
+            "Under Armour says Kara Trent has served as chief merchandising officer since "
+            "February 2026. Her background includes North America merchandising and EMEA "
+            "merchandising and planning roles."
+        ),
+    },
+    {
+        "title": "lululemon leadership Elizabeth Binder Chief Merchandising Officer",
+        "url": "https://corporate.lululemon.com/about-us/leadership-team",
+        "snippet": (
+            "lululemon identifies Elizabeth Binder as chief merchandising officer. She leads "
+            "global product strategy and assortment architecture and oversees global and regional "
+            "merchandising teams and merchandising and planning operations."
+        ),
+    },
+    {
+        "title": "Macy's Nata Dvir Chief Merchandising Officer",
+        "url": "https://investors.macysinc.com/newsroom/news/news-details/2026/Macys-Welcomes-Retail-Veteran-Dayna-Ziegler-as-Senior-Vice-President-General-Merchandise-Manager--Ready-to-Wear--2026-uiByYhCj0k/",
+        "snippet": (
+            "Macy's identifies Nata Dvir as chief merchandising officer. In 2026 Macy's said "
+            "its Ready-to-Wear leadership would report to Dvir while the company strengthens "
+            "assortments and responds to market trends and evolving demand."
+        ),
+    },
 ]
 
 

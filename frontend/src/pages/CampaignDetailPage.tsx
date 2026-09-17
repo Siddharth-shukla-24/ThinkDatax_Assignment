@@ -56,7 +56,7 @@ function DiscoveryPanel({
       {running && (
         <div className="alert alert-info" style={{ marginTop: 12 }}>
           <Spinner />
-          <span>Claude is searching the web and extracting leads. This may take 20–60 seconds…</span>
+          <span>AI is researching the market and identifying qualified prospects. This may take 20–60 seconds...</span>
         </div>
       )}
 
@@ -142,7 +142,10 @@ export default function CampaignDetailPage({ campaign, onBack, onSelectLead }: P
     }
   }, [campaign.id, statusFilter, sortBy, scoreMin, page]);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    const timer = window.setTimeout(() => { void load(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, [load]);
 
   const resetFilters = () => {
     setStatusFilter('');

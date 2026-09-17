@@ -90,6 +90,86 @@ _MOCK_EXTRACTIONS = {
             "inventory allocation across channels may be a growing priority for your team"
         ),
     },
+        "https://corporate.target.com/about/leadership-team/cara-sylvester": {
+        "first_name": "Cara",
+        "last_name": "Sylvester",
+        "title": "Executive Vice President and Chief Merchandising Officer",
+        "company_name": "Target",
+        "company_domain": "target.com",
+        "company_industry": "Retail",
+        "company_region": "US",
+        "company_size": "",
+        "observed_signal_sentence": (
+            "Target named Cara Sylvester chief merchandising officer effective February 2026"
+        ),
+        "observed_signal_short": "new Chief Merchandising Officer",
+        "pain_point_category": "assortment design",
+        "value_prop_for_pain_point": "support assortment design",
+        "specific_context_detail": "assortment and product development",
+        "one_line_relevance_hypothesis": (
+            "your merchandising team may be balancing assortment and product development"
+        ),
+    },
+    "https://about.underarmour.com/en/investors/corporate-governance.html": {
+        "first_name": "Kara",
+        "last_name": "Trent",
+        "title": "Chief Merchandising Officer",
+        "company_name": "Under Armour",
+        "company_domain": "underarmour.com",
+        "company_industry": "Apparel",
+        "company_region": "US",
+        "company_size": "",
+        "observed_signal_sentence": (
+            "Under Armour says Kara Trent has served as chief merchandising officer since February 2026"
+        ),
+        "observed_signal_short": "new Chief Merchandising Officer",
+        "pain_point_category": "merchandising and planning",
+        "value_prop_for_pain_point": "support merchandising and planning",
+        "specific_context_detail": "product, brand and marketplace engines",
+        "one_line_relevance_hypothesis": (
+            "your team may be coordinating product and merchandising planning across markets"
+        ),
+    },
+    "https://corporate.lululemon.com/about-us/leadership-team": {
+        "first_name": "Elizabeth",
+        "last_name": "Binder",
+        "title": "Chief Merchandising Officer",
+        "company_name": "lululemon",
+        "company_domain": "lululemon.com",
+        "company_industry": "Apparel",
+        "company_region": "US",
+        "company_size": "",
+        "observed_signal_sentence": (
+            "lululemon identifies Elizabeth Binder as chief merchandising officer"
+        ),
+        "observed_signal_short": "Chief Merchandising Officer",
+        "pain_point_category": "assortment architecture",
+        "value_prop_for_pain_point": "support assortment architecture and planning",
+        "specific_context_detail": "global and regional merchandising teams",
+        "one_line_relevance_hypothesis": (
+            "your team may be coordinating assortment planning across regions"
+        ),
+    },
+    "https://investors.macysinc.com/newsroom/news/news-details/2026/Macys-Welcomes-Retail-Veteran-Dayna-Ziegler-as-Senior-Vice-President-General-Merchandise-Manager--Ready-to-Wear--2026-uiByYhCj0k/": {
+        "first_name": "Nata",
+        "last_name": "Dvir",
+        "title": "Chief Merchandising Officer",
+        "company_name": "Macy's",
+        "company_domain": "macys.com",
+        "company_industry": "Retail",
+        "company_region": "US",
+        "company_size": "",
+        "observed_signal_sentence": (
+            "Macy's identifies Nata Dvir as chief merchandising officer"
+        ),
+        "observed_signal_short": "Chief Merchandising Officer",
+        "pain_point_category": "assortment planning",
+        "value_prop_for_pain_point": "support assortment planning around evolving demand",
+        "specific_context_detail": "Ready-to-Wear assortments and market trends",
+        "one_line_relevance_hypothesis": (
+            "your merchandising team may be balancing assortment breadth with changing demand"
+        ),
+    },
 }
 
 
