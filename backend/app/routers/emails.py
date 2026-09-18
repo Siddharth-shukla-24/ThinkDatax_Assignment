@@ -48,6 +48,15 @@ def send_lead_email(lead_id: int, db: Session = Depends(get_db)) -> EmailEvent:
             "unsubscribe_url": unsubscribe_url,
         },
     )
+    record_event(
+        db,
+        lead,
+        EmailEventType.DELIVERED.value,
+        event_metadata={
+            "provider_id": provider_result.get("id"),
+            "mocked": provider_result.get("mocked", False),
+        },
+    )
     event_id = event.id
     db.commit()
 

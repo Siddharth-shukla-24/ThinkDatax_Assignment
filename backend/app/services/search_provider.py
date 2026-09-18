@@ -44,7 +44,7 @@ _MOCK_RESULTS = [
         "snippet": (
             "Under Armour says Kara Trent has served as chief merchandising officer since "
             "February 2026. Her background includes North America merchandising and EMEA "
-            "merchandising and planning roles."
+            "merchandising and planning roles across product, brand and marketplace engines."
         ),
     },
     {

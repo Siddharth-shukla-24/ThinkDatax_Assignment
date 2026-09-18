@@ -8,6 +8,7 @@ from app.services.suppression import suppress_email
 
 _STATUS_FROM_EVENT_TYPE = {
     "sent": LeadStatus.SENT.value,
+    "delivered": LeadStatus.SENT.value,
     "opened": LeadStatus.OPENED.value,
     "replied": LeadStatus.REPLIED.value,
     "unsubscribed": LeadStatus.UNSUBSCRIBED.value,
