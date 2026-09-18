@@ -3,8 +3,10 @@ import uuid
 import pytest
 from fastapi.testclient import TestClient
 
+from sqlalchemy.orm import Session
+
 from app.core.config import settings
-from app.db.database import SessionLocal
+from app.db.database import engine, get_db
 from app.db.models import Campaign, Company, Lead, LeadStatus
 from app.main import app
 from app.services.reply_classifier import _fallback_classify, classify_reply
@@ -13,14 +15,33 @@ client = TestClient(app)
 HEADERS = {"Authorization": f"Bearer {settings.api_token}"}
 
 
+@pytest.fixture(autouse=True)
+def db_session():
+    connection = engine.connect()
+    trans = connection.begin()
+    session = Session(bind=connection, join_transaction_mode="create_savepoint")
+
+    def override_get_db():
+        yield session
+
+    app.dependency_overrides[get_db] = override_get_db
+
+    try:
+        yield session
+    finally:
+        app.dependency_overrides.pop(get_db, None)
+        session.close()
+        trans.rollback()
+        connection.close()
+
+
 @pytest.fixture
-def lead_id():
-    db = SessionLocal()
+def lead_id(db_session):
     unique = uuid.uuid4().hex[:8]
     company = Company(name=f"Test Co Reply {unique}")
     campaign = Campaign(name=f"Test Campaign Reply {unique}", icp_criteria={})
-    db.add_all([company, campaign])
-    db.flush()
+    db_session.add_all([company, campaign])
+    db_session.flush()
     lead = Lead(
         company_id=company.id,
         campaign_id=campaign.id,
@@ -29,12 +50,10 @@ def lead_id():
         source_url="https://example.com",
         status=LeadStatus.SENT.value,
     )
-    db.add(lead)
-    db.commit()
-    db.refresh(lead)
-    created_id = lead.id
-    db.close()
-    yield created_id
+    db_session.add(lead)
+    db_session.commit()
+    db_session.refresh(lead)
+    return lead.id
 
 
 @pytest.mark.parametrize(
